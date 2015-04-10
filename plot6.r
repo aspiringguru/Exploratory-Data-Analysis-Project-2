@@ -3,7 +3,18 @@
 ## vehicle sources in Los Angeles County, California (fips == 06037). 
 ## Which city has seen greater changes over time in motor vehicle emissions?
 ##-----------------------------------------------------------------------------------------------
-setwd("H:/2015/coursera/data_science/Exploratory Data Analysis/project2")
+library(reshape)
+library(reshape2)
+library(downloader)
+library(mgcv)
+library(ggplot2) ## needed for qplot
+library(lattice)
+## set working directory
+setwd("G:/2015/coursera/data_science/Exploratory Data Analysis/project2/09-4-15/")
+## download zip file & unzip
+download("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip", dest="dataset.zip", mode="wb") 
+unzip ("dataset.zip")
+##
 NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 ## reuse the subsetting method from q5 and use the melt-dcast-plot method from q3.
@@ -33,4 +44,3 @@ qplot(year, Emissions, data=NEI.bla.year.emissions, color = fips, ) + labs(title
 png("plot6.png")
 qplot(year, Emissions, data=NEI.bla.year.emissions, color = fips, ) + labs(title="Vehicle Emissions : Color by City") + theme_bw() +   geom_line()
 dev.off()
-

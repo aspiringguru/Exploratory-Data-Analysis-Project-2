@@ -1,12 +1,22 @@
 ##-----------------------------------------------------------------------------------------------
 ##Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008?
 ##-----------------------------------------------------------------------------------------------
-setwd("H:/2015/coursera/data_science/Exploratory Data Analysis/project2")
+library(reshape)
+library(reshape2)
+library(downloader)
+library(mgcv)
+library(ggplot2) ## needed for qplot
+library(lattice)
+## set working directory
+setwd("G:/2015/coursera/data_science/Exploratory Data Analysis/project2/09-4-15/")
+## download zip file & unzip
+download("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip", dest="dataset.zip", mode="wb") 
+unzip ("dataset.zip")
+##
 NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 ##length(unique(SCC$Short.Name))  ## [1] 11238
 ## pseudocode - select SCC$Short.Name with "Coal" or "coal" in name, plot sum of emissions for each year.
-## 
 SCC$coal <- grepl("[Cc]oal", SCC$Short.Name)
 coalSCC <- subset(SCC, coal, select = SCC)
 ## now select rows from NEI where NEI$SCC is in coalSCC.
